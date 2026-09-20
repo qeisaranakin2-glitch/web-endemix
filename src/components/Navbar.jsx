@@ -23,13 +23,17 @@ function Navbar() {
       <div className="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between px-5 sm:px-6 lg:px-10">
         {/* BRAND */}
         <a href="#" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-[11px] font-semibold tracking-[0.08em] text-[#e2ad39] backdrop-blur-md">
-            PK
-          </div>
+         <div className="flex items-center">
+  <img
+    src="/images/logo/logo.png"
+    alt="Endemix Nusantara"
+    className="h-12 w-auto object-contain sm:h-14"
+  />
+</div>
 
           <div className="leading-none">
             <p className="text-[13px] font-semibold tracking-[0.18em]">
-              POHON KOPI
+              Endemix Nusantara
             </p>
 
             <p className="mt-1 text-[9px] uppercase tracking-[0.24em] text-white/45">
