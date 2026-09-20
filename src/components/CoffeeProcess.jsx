@@ -27,9 +27,9 @@ const processMedia = [
     type: "video",
     src: "/images/process/pulping.mp4",
   },
-   {
-    type: "image",
-    src: "/images/process/drying.jpg",
+ {
+    type: "video",
+    src: "/images/process/drying.mp4",
   },
   {
     type: "video",
