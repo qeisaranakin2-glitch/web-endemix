@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext.jsx";
+import translations from "../data/translations.js";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
 
+  const { language, setLanguage } = useLanguage();
+
+  const t = translations[language];
+
   const menu = [
-    { label: "Story", href: "#story" },
-    { label: "Process", href: "#process" },
-    { label: "Origin", href: "#origin" },
-    { label: "Products", href: "#products" },
-    { label: "Gallery", href: "#gallery" },
+    { label: t.navbar.story, href: "#story" },
+    { label: t.navbar.process, href: "#process" },
+    { label: t.navbar.origin, href: "#origin" },
+    { label: t.navbar.products, href: "#products" },
+    { label: t.navbar.gallery, href: "#gallery" },
   ];
 
   return (
@@ -33,10 +39,10 @@ function Navbar() {
         </a>
 
         {/* DESKTOP MENU */}
-        <nav className="hidden items-center gap-8 text-[13px] lg:flex">
+        <nav className="hidden items-center gap-7 text-[13px] lg:flex">
           {menu.map((item) => (
             <a
-              key={item.label}
+              key={item.href}
               href={item.href}
               className="text-white/75 transition hover:text-[#e1aa30]"
             >
@@ -45,24 +51,53 @@ function Navbar() {
           ))}
         </nav>
 
-        {/* RIGHT SIDE */}
+        {/* RIGHT */}
         <div className="flex items-center gap-3">
+          {/* LANGUAGE */}
+          <div className="hidden items-center rounded-full border border-white/20 bg-white/5 p-1 sm:flex">
+            <button
+              type="button"
+              onClick={() => setLanguage("id")}
+              className={`rounded-full px-3 py-1.5 text-[10px] font-medium transition ${
+                language === "id"
+                  ? "bg-white text-black"
+                  : "text-white/50 hover:text-white"
+              }`}
+            >
+              ID
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setLanguage("en")}
+              className={`rounded-full px-3 py-1.5 text-[10px] font-medium transition ${
+                language === "en"
+                  ? "bg-white text-black"
+                  : "text-white/50 hover:text-white"
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
+          {/* INSTAGRAM */}
           <a
             href="https://www.instagram.com/pohon_kopi/"
             target="_blank"
             rel="noreferrer"
             className="hidden items-center gap-2 text-[13px] text-white/80 sm:flex"
           >
-            <span>Instagram</span>
+            <span>{t.navbar.instagram}</span>
 
             <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 transition hover:bg-white hover:text-black">
               ↗
             </span>
           </a>
 
-          {/* MOBILE BUTTON */}
+          {/* MOBILE MENU BUTTON */}
           <button
-            onClick={() => setOpen(!open)}
+            type="button"
+            onClick={() => setOpen((prev) => !prev)}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/10 lg:hidden"
             aria-label="Toggle menu"
           >
@@ -77,16 +112,27 @@ function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
+            initial={{
+              opacity: 0,
+              y: -10,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -10,
+            }}
+            transition={{
+              duration: 0.22,
+            }}
             className="border-t border-white/15 bg-[#17130f]/95 px-5 py-6 backdrop-blur-xl lg:hidden"
           >
             <div className="flex flex-col gap-5">
               {menu.map((item) => (
                 <a
-                  key={item.label}
+                  key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
                   className="text-2xl font-medium tracking-[-0.03em] text-white"
@@ -95,14 +141,47 @@ function Navbar() {
                 </a>
               ))}
 
+              {/* MOBILE LANGUAGE */}
               <div className="mt-2 border-t border-white/10 pt-5">
+                <p className="mb-3 text-[9px] uppercase tracking-[0.3em] text-white/35">
+                  Language
+                </p>
+
+                <div className="flex w-fit items-center rounded-full border border-white/20 p-1">
+                  <button
+                    type="button"
+                    onClick={() => setLanguage("id")}
+                    className={`rounded-full px-4 py-2 text-xs transition ${
+                      language === "id"
+                        ? "bg-white text-black"
+                        : "text-white/50"
+                    }`}
+                  >
+                    Indonesia
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setLanguage("en")}
+                    className={`rounded-full px-4 py-2 text-xs transition ${
+                      language === "en"
+                        ? "bg-white text-black"
+                        : "text-white/50"
+                    }`}
+                  >
+                    English
+                  </button>
+                </div>
+              </div>
+
+              <div className="border-t border-white/10 pt-5">
                 <a
                   href="https://www.instagram.com/pohon_kopi/"
                   target="_blank"
                   rel="noreferrer"
                   className="text-sm text-white/50"
                 >
-                  Instagram ↗
+                  {t.navbar.instagram} ↗
                 </a>
               </div>
             </div>
